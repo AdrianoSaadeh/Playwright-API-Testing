@@ -7,6 +7,7 @@ This repository contains automated API tests using **Playwright**.
 - **Framework:** Playwright  
 - **Language:** JavaScript
 - **Purpose:** Automated testing of APIs based on https://fakerestapi.azurewebsites.net/index.html, including validations for response codes, schemas, and business rules.
+- **Author:** [Adriano Saadeh](https://github.com/AdrianoSaadeh)
 
 ## 🚀 Getting Started
 
