@@ -8,9 +8,8 @@ test.describe('Validações do endpoint PUT /api/v1/Activities/{id}', () => {
     // Isso garante que temos um recurso para atualizar.
     test.beforeAll(async ({ request }) => {
         const newActivity = {
-            id: 31, // ID 0 para que a API gere um novo
             title: "Atividade Original para PUT",
-            dueDate: "2025-07-01T09:00:00.000Z",
+            dueDate: 1748891012,
             completed: false
         };
 
