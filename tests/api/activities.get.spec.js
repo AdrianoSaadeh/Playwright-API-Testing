@@ -23,8 +23,8 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
     // Validation 3: Non-empty array
     expect(activitiesResponse.length).toBeGreaterThan(0);
 
-    // Validation 4: Expecting at least 30 activities
-    expect(activitiesResponse.length).toBeGreaterThanOrEqual(30);
+    // Validation 4: Expecting at least 40 activities
+    expect(activitiesResponse.length).toBeGreaterThanOrEqual(40);
   });
 
   test("Should validate the structure and data types of each activity object", async ({ request }) => {
@@ -64,9 +64,7 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
   test("Should validate that the `dueDate` is a valid date for all activities", async ({ request }) => {
     activitiesResponse.forEach((activity) => {
       // Validation 9: More robust date format validation (if the format is consistent)
-      console.log(activity.dueDate);
-      const date = new Date(activity.dueDate);
-      console.log(date);
+      const date = new Date(activity.dueDate * 1000);
       expect(date.toString()).not.toBe("Invalid Date");
     });
   });

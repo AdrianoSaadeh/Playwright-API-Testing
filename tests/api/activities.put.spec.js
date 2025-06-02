@@ -18,7 +18,6 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         });
         const postResponse = await response.json();
         createdActivityId = postResponse.id; // Saves the ID of the created activity
-        console.log(`Activity created with ID for PUT: ${createdActivityId}`);
         expect(response.status()).toBe(201); // Ensures the initial creation was successful
         expect(Number(createdActivityId)).toBeGreaterThan(40); // Validating a minimum ID value
     });
@@ -103,9 +102,8 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         expect(response.status()).toBe(404);
         const responseBody = await response.json();
         // The API actually returns a "Not found" string, not an object with a message property.
-        expect(responseBody).toBe("Not found");
-        expect(responseBody).toContain("Not found"); // More robust check if it's a string message
+        expect(responseBody).toContain("Not foundx"); // More robust check if it's a string message
     });
 
-   
+
 });

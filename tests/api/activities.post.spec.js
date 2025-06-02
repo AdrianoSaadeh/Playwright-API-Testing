@@ -63,7 +63,6 @@ test.describe("Validations for the POST /api/v1/Activities endpoint", () => {
 
         expect(getResponse.status()).toBe(200); // Ensures it's possible to fetch the newly created resource
         const fetchedActivity = await getResponse.json();
-        console.log(fetchedActivity);
 
         expect(fetchedActivity.id).toBe(responseBody.id);
         expect(fetchedActivity.title).toBe(newActivity.title);
