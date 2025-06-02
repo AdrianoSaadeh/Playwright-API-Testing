@@ -1,11 +1,16 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Validations for the /api/v1/Activities endpoint", () => {
+  let response; // Variables to store the API response
+  let activitiesResponse; // Variables to store the JSON response
+
+  test.beforeEach(async ({ request }) => {
+    // Makes the request and parses the JSON only once per test
+    response = await request.get("api/v1/Activities"); 
+    activitiesResponse = await response.json();
+  });
 
   test("Should return status 200 OK and an array of activities", async ({ request }) => {
-    const response = await request.get("api/v1/Activities");
-    const activitiesResponse = await response.json();
-
     // Validation 1: Status Code
     expect(response.ok()).toBeTruthy();
 
@@ -14,9 +19,6 @@ test.describe("Validations for the /api/v1/Activities endpoint", () => {
   });
 
   test("Should return a non-empty array with an expected number of activities (example with minimum)", async ({ request }) => {
-    const response = await request.get("api/v1/Activities")
-    const activitiesResponse = await response.json();
-
     // Validation 3: Non-empty array
     expect(activitiesResponse.length).toBeGreaterThan(0);
 
@@ -25,9 +27,6 @@ test.describe("Validations for the /api/v1/Activities endpoint", () => {
   });
 
   test("Should validate the structure and data types of each activity object", async ({ request }) => {
-    const response = await request.get("api/v1/Activities")
-    const activitiesResponse = await response.json();
-
     // Iterates over each activity in the array to validate its structure and data types
     activitiesResponse.forEach((activity) => {
       // Validation 5: Object Structure (presence of properties)
@@ -45,9 +44,6 @@ test.describe("Validations for the /api/v1/Activities endpoint", () => {
   });
 
   test("Should validate that all IDs are unique and that the completed field is a boolean", async ({ request }) => {
-    const response = await request.get("api/v1/Activities")
-    const activitiesResponse = await response.json();
-
     const ids = activitiesResponse.map((activity) => activity.id);
 
     // Validation 7: Uniqueness of IDs
@@ -56,9 +52,6 @@ test.describe("Validations for the /api/v1/Activities endpoint", () => {
   });
 
   test("Should validate that there is at least one activity marked as `completed: true` and one as `completed: false`", async ({ request }) => {
-    const response = await request.get("api/v1/Activities")
-    const activitiesResponse = await response.json();
-
     // Validation 8: Presence of different states (if applicable)
     const hasCompletedTrue = activitiesResponse.some((activity) => activity.completed === true);
     const hasCompletedFalse = activitiesResponse.some((activity) => activity.completed === false);
@@ -68,14 +61,10 @@ test.describe("Validations for the /api/v1/Activities endpoint", () => {
   });
 
   test("Should validate that the `dueDate` is a valid date for all activities", async ({ request }) => {
-    const response = await request.get("api/v1/Activities")
-    const activitiesResponse = await response.json();
-
     activitiesResponse.forEach((activity) => {
       // Validation 9: More robust date format validation (if the format is consistent)
       const date = new Date(activity.dueDate);
       expect(date.toString()).not.toBe("Invalid Date");
     });
   });
-
 });
