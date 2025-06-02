@@ -11,6 +11,7 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   retries: 0,
+  workers: 1,
   reporter: [
     ['list'],
     ['html'],
