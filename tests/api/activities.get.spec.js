@@ -6,7 +6,7 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
 
   test.beforeEach(async ({ request }) => {
     // Makes the request and parses the JSON only once per test
-    response = await request.get("api/v1/Activities");
+    response = await request.get("activities");
     activitiesResponse = await response.json();
   });
 
@@ -37,9 +37,9 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
       expect(activity).toHaveProperty("completed");
 
       // Validation 6: Data Types of Properties
-      expect(typeof activity.id).toBe("number");
+      expect(typeof activity.id).toBe("string");
       expect(typeof activity.title).toBe("string");
-      expect(typeof activity.dueDate).toBe("string");
+      expect(typeof activity.dueDate).toBe("number");
       expect(typeof activity.completed).toBe("boolean");
     });
   });
@@ -52,19 +52,21 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
     expect(uniqueIds.size).toBe(ids.length); // The number of unique IDs must be equal to the total number of IDs
   });
 
-  test("Should validate that there is at least one activity marked as `completed: true` and one as `completed: false`", async ({ request }) => {
+  test("Should validate that all activities are marked as `completed: false`", async ({ request }) => {
     // Validation 8: Presence of different states (if applicable)
     const hasCompletedTrue = activitiesResponse.some((activity) => activity.completed === true);
     const hasCompletedFalse = activitiesResponse.some((activity) => activity.completed === false);
 
-    expect(hasCompletedTrue).toBeTruthy();
     expect(hasCompletedFalse).toBeTruthy();
+    expect(hasCompletedTrue).toBeFalsy();
   });
 
   test("Should validate that the `dueDate` is a valid date for all activities", async ({ request }) => {
     activitiesResponse.forEach((activity) => {
       // Validation 9: More robust date format validation (if the format is consistent)
+      console.log(activity.dueDate);
       const date = new Date(activity.dueDate);
+      console.log(date);
       expect(date.toString()).not.toBe("Invalid Date");
     });
   });

@@ -1,11 +1,11 @@
 {
   "name": "playwright-api",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "scripts":  {
     "test": "npx playwright test",
-    "test:api": "npx playwright test tests/api/",
-    "test:ui": "npx playwright test tests/ui/",
+    "test:ui": "npx playwright test --ui",
     "test:activities-all": "npx playwright test tests/api/activities.get.spec.js",
     "test:activities-id": "npx playwright test tests/api/activities.get.byId.spec.js",
     "test:grep": "npx playwright test --grep",
