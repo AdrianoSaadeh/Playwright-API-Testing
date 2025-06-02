@@ -2,7 +2,17 @@
   "name": "playwright-api",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts":  {
+    "test": "npx playwright test",
+    "test:api": "npx playwright test tests/api/",
+    "test:ui": "npx playwright test tests/ui/",
+    "test:activities-all": "npx playwright test tests/api/activities.get.spec.js",
+    "test:activities-id": "npx playwright test tests/api/activities.get.byId.spec.js",
+    "test:grep": "npx playwright test --grep",
+    "test:activities-get-all": "npx playwright test --grep \"Validations for the GET /api/v1/Activities endpoint\"",
+    "test:activities-get-id": "npx playwright test --grep \"Endpoint Validations for GET /api/v1/Activities/{id}\"",
+    "test:debug": "npx playwright test --debug"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

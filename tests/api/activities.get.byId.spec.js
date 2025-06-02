@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Endpoint Validations for /api/v1/Activities/{id}", () => {
+test.describe("Endpoint Validations for GET /api/v1/Activities/{id}", () => {
 
     // --- Scenario 1: Object Found (Valid ID) ---
     test("Should return a specific activity with 200 OK status for a valid ID", async ({ request }) => {

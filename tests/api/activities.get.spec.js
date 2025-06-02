@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Validations for the /api/v1/Activities endpoint", () => {
+test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
   let response; // Variables to store the API response
   let activitiesResponse; // Variables to store the JSON response
 
