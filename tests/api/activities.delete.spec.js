@@ -12,7 +12,6 @@ test.describe('Validações do endpoint DELETE /api/v1/activities/{id}', () => {
             completed: false
         };
 
-        console.log(newActivity.dueDate);
         const response = await request.post('activities', {
             data: newActivity
         });
