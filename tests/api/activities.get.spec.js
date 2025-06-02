@@ -6,7 +6,7 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
 
   test.beforeEach(async ({ request }) => {
     // Makes the request and parses the JSON only once per test
-    response = await request.get("api/v1/Activities"); 
+    response = await request.get("api/v1/Activities");
     activitiesResponse = await response.json();
   });
 
@@ -14,8 +14,9 @@ test.describe("Validations for the GET /api/v1/Activities endpoint", () => {
     // Validation 1: Status Code
     expect(response.ok()).toBeTruthy();
 
-    // Validation 2: Response Type (should be an array)
+    // Validation 2: Response Type (should be an array) and have a JSON content-type 
     expect(Array.isArray(activitiesResponse)).toBeTruthy();
+    expect(response.headers()['content-type']).toContain('application/json');
   });
 
   test("Should return a non-empty array with an expected number of activities (example with minimum)", async ({ request }) => {

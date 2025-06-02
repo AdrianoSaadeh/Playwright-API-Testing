@@ -11,8 +11,12 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   retries: 0,
-  reporter: [["list"], ["html"]],
-  
+  reporter: [
+    ['list'],
+    ['html'],
+    ['json', { outputFile: 'test-results.json' }]
+  ],
+
   /* Configure projects for major browsers */
   projects: [
     {
