@@ -102,7 +102,7 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         expect(response.status()).toBe(404);
         const responseBody = await response.json();
         // The API actually returns a "Not found" string, not an object with a message property.
-        expect(responseBody).toContain("Not foundx"); // More robust check if it's a string message
+        expect(responseBody).toContain("Not found"); // More robust check if it's a string message
     });
 
 
