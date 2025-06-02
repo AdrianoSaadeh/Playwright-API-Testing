@@ -22,3 +22,17 @@ Clone the repository:
 ```bash
 git clone https://github.com/AdrianoSaadeh/Playwright-API-Testing.git
 cd Playwright-API-Testing
+npm install
+```
+
+### Running Tests
+To execute all API tests:
+
+```
+npx playwright test
+```
+
+To run a specific test file:
+```
+npm run test:activities-all or npm run test:activities-id
+
