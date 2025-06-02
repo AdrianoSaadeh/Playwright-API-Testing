@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("Validations for the POST /api/v1/Activities endpoint", () => {
+    let responseBody;
 
     test("Should create a new activity and return 201 Created status with the correct data", async ({ request }) => {
         const newActivity = {
@@ -21,7 +22,7 @@ test.describe("Validations for the POST /api/v1/Activities endpoint", () => {
         expect(postResponse.status()).toBe(201);
 
         // 2. Response Body Validation (Returned Payload):
-        const responseBody = await postResponse.json();
+        responseBody = await postResponse.json();
 
         // 2.1. Validate that the response is not null/empty
         expect(responseBody).not.toBeNull();
@@ -92,6 +93,11 @@ test.describe("Validations for the POST /api/v1/Activities endpoint", () => {
         const allErrors = Object.values(errorBody.errors).flat();
         const found = allErrors.some(msg => msg.includes("The JSON value could not be converted to System.DateTime"));
         expect(found).toBeTruthy();
+    });
+
+    test.afterAll(async ({ request }) => {
+        await request.delete(`activities/${responseBody.id}`);
+        console.log(`POST tests completed for ID: ${responseBody.id}`);
     });
 
 });

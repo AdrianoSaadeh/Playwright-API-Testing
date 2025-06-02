@@ -5,7 +5,6 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
     let createdActivityId; // Variable to store the ID of the activity created for the test
 
     // `beforeAll` hook to create an activity before all PUT tests
-    // This ensures we have a resource to update.
     test.beforeAll(async ({ request }) => {
         const newActivity = {
             title: "Original Activity for PUT",
@@ -84,6 +83,27 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         expect(fetchedDueDate).toBe(sentUpdatedDueDate);
     });
 
+    test.skip('Should return 400 Bad Request when sending invalid data for update (e.g., empty title)', async ({ request }) => {
+        const invalidUpdateData = {
+            id: createdActivityId, // Valid ID
+            title: "", // Invalid title (usually empty is not allowed but hits API not check this)
+            dueDate: 1748891012,
+            completed: true
+        };
+
+        const response = await request.put(`activities/${createdActivityId}`, {
+            data: invalidUpdateData
+        });
+
+        // 1. Error Status Code Validation:
+        expect(response.status()).toBe(400); // Expect 400 Bad Request
+
+        // 2. Error Response Body Validation (if the API provides details):
+        const errorBody = await response.json();
+        expect(errorBody).toHaveProperty('errors');
+        expect(errorBody.errors.Title[0]).toContain('The Title field is required.');
+    });
+
     test('Should return 404 Not Found when trying to update a non-existent activity', async ({ request }) => {
         const nonExistentId = 999999; // An ID that surely does not exist
         const dataForNonExistent = {
@@ -105,5 +125,8 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         expect(responseBody).toContain("Not found"); // More robust check if it's a string message
     });
 
-
+    test.afterAll(async ({ request }) => {
+        await request.delete(`activities/${createdActivityId}`);
+        console.log(`PUT tests completed for ID: ${createdActivityId}`);
+    });
 });
