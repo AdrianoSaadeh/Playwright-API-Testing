@@ -107,34 +107,5 @@ test.describe('Validations for the PUT /api/v1/Activities/{id} endpoint', () => 
         expect(responseBody).toContain("Not found"); // More robust check if it's a string message
     });
 
-    // test('Should return 400 Bad Request when sending invalid data for update (e.g., empty title)', async ({ request }) => {
-    //     const invalidUpdateData = {
-    //         id: createdActivityId, // Valid ID
-    //         title: "", // Invalid title (usually empty is not allowed)
-    //         dueDate: 1748891012,
-    //         completed: true
-    //     };
-
-    //     const response = await request.put(`${BASE_URL}/api/v1/Activities/${createdActivityId}`, {
-    //         data: invalidUpdateData
-    //     });
-
-    //     // 1. Error Status Code Validation:
-    //     expect(response.status()).toBe(400); // Expect 400 Bad Request
-
-    //     // 2. Error Response Body Validation (if the API provides details):
-    //     const errorBody = await response.json();
-    //     expect(errorBody).toHaveProperty('errors');
-    //     // For this specific API, it might not return a detailed error for an empty `title`.
-    //     // In real APIs, you would look for specific error messages, such as:
-    //     // expect(errorBody.errors.Title[0]).toContain('The Title field is required.');
-    // });
-
-    // `afterAll` hook for cleanup (optional for test APIs like this)
-    // In a real API, you would perform a DELETE here.
-    test.afterAll(async ({ request }) => {
-        // For fakerestapi, there is no DELETE endpoint for Activities.
-        // In a real API: await request.delete(`${BASE_URL}/api/v1/Activities/${createdActivityId}`);
-        console.log(`PUT tests completed for ID: ${createdActivityId}`);
-    });
+   
 });
