@@ -9,6 +9,10 @@ export default defineConfig({
     baseURL: process.env.URL,
     ignoreHTTPSErrors: true,
     trace: "retain-on-failure",
+    extraHTTPHeaders: {
+      'Accept': 'application/vnd.github.v3+json', // Formato de API do GitHub
+      'Authorization': `token ${process.env.GITHUB_API_TOKEN}`, // Seu PAT
+    },
   },
   retries: 0,
   workers: 1,
